@@ -54,24 +54,4 @@ data "aws_iam_policy_document" "codepipeline_policy" {
       "codestar-connections:UseConnection"
     ]
   }
-<<<<<<< HEAD
 }
-=======
-}
-
-
-
-//module "ssr_codebuild_role" {
-//  source     = "../../iam"
-//  name       = "ssr_codebuild_role"
-//  identifier = "codebuild.amazonaws.com"
-//  policy     = data.aws_iam_policy_document.codebuild_policy.json
-//}
-//
-//module "ssr_codepipeline_role" {
-//  source     = "../../iam"
-//  name       = "ssr_codepipeline_role"
-//  identifier = "codepipeline.amazonaws.com"
-//  policy     = data.aws_iam_policy_document.codepipeline_policy.json
-//}
->>>>>>> c36c93c9edeb47bb58e89c43f4df4fc5f9b1741b

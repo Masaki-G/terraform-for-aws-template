@@ -113,11 +113,7 @@ resource "aws_codebuild_project" "example_backend_project" {
     modes = ["LOCAL_DOCKER_LAYER_CACHE", "LOCAL_SOURCE_CACHE"]
   }
   environment {
-<<<<<<< HEAD
     compute_type    = "BUILD_GENERAL1_LARGE"
-=======
-    compute_type    = "BUILD_GENERAL1_SMALL"
->>>>>>> c36c93c9edeb47bb58e89c43f4df4fc5f9b1741b
     image           = "aws/codebuild/amazonlinux2-x86_64-standard:2.0"
     type            = "LINUX_CONTAINER"
     privileged_mode = true
