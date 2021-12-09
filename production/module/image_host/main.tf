@@ -1,6 +1,20 @@
 resource "aws_s3_bucket" "example_hosting_bucket" {
   bucket = var.bucket_name
   acl    = var.acl
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods= [
+            "GET",
+            "PUT",
+            "POST",
+            "HEAD",
+            "DELETE"
+        ],
+    allowed_origins = ["*"]
+    expose_headers  = []
+    max_age_seconds = 10000
+  }
 }
 
 resource "aws_cloudfront_origin_access_identity" "example_cloudfront_origin_access" {}
