@@ -3,10 +3,9 @@
 ![](https://img.shields.io/badge/-TerraForm%20-232F3E.svg?logo=terraform&style=flat)
 
 # template-terraform-for-aws
-fignnyでよく使うaws構成をterraformで汎用的に作成しました。
-- ECSのfargateによるサーバー管理不要なコンテナを実行するためのサーバー環境
-- ECRによるコンテナ管理
-- S3 + cloudfrontによるエッジサーバーからコンテンツの配信によるレスポンス速度の向上
+自分がよく使うaws構成をterraformで汎用的に作成しました。
+- ECR、ECSのfargateによる管理不要なコンテナを実行するためのサーバー環境
+- S3 + cloudfrontによるSPAでのホスト
 - codepipeline codebuildを使用したcicd環境
 
 # setup
