@@ -1,5 +1,5 @@
 #frontend用(ssr)cicd
-module "cicd_backend" {
+module "cicd_ssr" {
   source              = "./module/cicd/frontend_ssr"
   ssr_codebuild_name  = "dev-frontend-codebuild"
   ssr_buildspec       = "buildspec/development.yml"

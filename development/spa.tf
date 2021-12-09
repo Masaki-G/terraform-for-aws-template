@@ -1,6 +1,6 @@
 #frontend用(spa_cloudfront)cicd
 module "cicd_frontend_spa" {
-  source = "./module/cicd/frontend_spa"
+  source              = "./module/cicd/frontend_spa"
   spa_codebuild_name  = "dev-frontend-codebuild"
   spa_buildspec       = "buildspec/development.yml"
   spa_artifact_bucket = "dev-frontend-s3-artifact"
@@ -17,8 +17,8 @@ module "spa_cloudfront" {
   domain_name         = "dev.xxxx.xxxx"
   acm_certificate_arn = module.acm.cloudfront-acm
   sid                 = "Allow cloudfront"
-//  allowed_methods = []
-//  cached_methods = []
+  //  allowed_methods = []
+  //  cached_methods = []
 }
 
 #SPA用cloudfrontのssl証明書
