@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "example_spa_cloudfront" {
     allowed_methods        = var.allowed_methods
     cached_methods         = var.cached_methods
     target_origin_id       = aws_s3_bucket.example_image_bucket.id
-    viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = "allow-all"
 
     forwarded_values {
       query_string = false
@@ -45,6 +45,7 @@ resource "aws_cloudfront_distribution" "example_spa_cloudfront" {
   }
   viewer_certificate {
     cloudfront_default_certificate = true
+
     acm_certificate_arn            = var.acm_certificate_arn
     ssl_support_method             = "sni-only"
     minimum_protocol_version       = "TLSv1.2_2021"
@@ -76,3 +77,6 @@ resource "aws_s3_bucket_policy" "hosting_bucket_policy" {
   bucket = aws_s3_bucket.example_image_bucket.id
   policy = data.aws_iam_policy_document.example_policy.json
 }
+
+
+

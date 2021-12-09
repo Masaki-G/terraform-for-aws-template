@@ -7,7 +7,7 @@ module "mysql_sg" {
 }
 
 resource "aws_db_parameter_group" "example_rds_parameter" {
-  name   = "prod-examplerds1"
+  name   = "dev-rds-parameter-group"
   family = "mysql8.0"
 
   parameter {
@@ -22,13 +22,13 @@ resource "aws_db_parameter_group" "example_rds_parameter" {
 }
 
 resource "aws_db_option_group" "example_rds_option" {
-  name                 = "prod-examplerds2"
+  name                 = "dev-rds-option-group"
   engine_name          = "mysql"
   major_engine_version = "8.0"
 }
 
 resource "aws_db_subnet_group" "example_rds_subnet" {
-  name       = "prod-examplerds3"
+  name       = "dev-rds-subnet-group"
   subnet_ids = var.private_subnet
 }
 
@@ -45,7 +45,7 @@ resource "aws_db_instance" "example_rds" {
   name                       = var.database_name
   username                   = "admin"
   password                   = var.password
-  multi_az                   = true
+  multi_az                   = false
   publicly_accessible        = false
   backup_retention_period    = 30
   maintenance_window         = "mon:10:10-mon:10:40"

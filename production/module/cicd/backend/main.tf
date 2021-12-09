@@ -22,21 +22,21 @@ module "cicd_policy" {
 
 module "backend_codebuild_role" {
   source     = "../../iam"
-  name       = "prod-backend_codebuild_role"
+  name       = "backend_codebuild_role"
   identifier = "codebuild.amazonaws.com"
   policy     = module.cicd_policy.codebuild_policy
 }
 
 module "backend_codepipeline_role" {
   source     = "../../iam"
-  name       = "prod-backend_codepipeline_role"
+  name       = "backend_codepipeline_role"
   identifier = "codepipeline.amazonaws.com"
   policy     = module.cicd_policy.codepipeline_policy
 }
 
 # backend用codepipeline、codebuild
 resource "aws_codepipeline" "example_codepipeline" {
-  name     = "prod-backend_code_pipeline"
+  name     = "backend_code_pipeline"
   role_arn = module.backend_codepipeline_role.iam_role_arn
 
   stage {
@@ -102,9 +102,13 @@ resource "aws_codebuild_project" "example_backend_project" {
   artifacts {
     type = "CODEPIPELINE"
   }
+  cache {
+    type  = "LOCAL"
+    modes = ["LOCAL_DOCKER_LAYER_CACHE", "LOCAL_SOURCE_CACHE"]
+  }
   environment {
-    compute_type    = "BUILD_GENERAL1_SMALL"
-    image           = "aws/codebuild/standard:4.0"
+    compute_type    = "BUILD_GENERAL1_LARGE"
+    image           = "aws/codebuild/amazonlinux2-x86_64-standard:2.0"
     type            = "LINUX_CONTAINER"
     privileged_mode = true
   }
@@ -129,9 +133,14 @@ resource "aws_codebuild_project" "example_nginx_project" {
   artifacts {
     type = "NO_ARTIFACTS"
   }
+
+  cache {
+    type  = "LOCAL"
+    modes = ["LOCAL_DOCKER_LAYER_CACHE", "LOCAL_SOURCE_CACHE"]
+  }
   environment {
-    compute_type    = "BUILD_GENERAL1_SMALL"
-    image           = "aws/codebuild/standard:4.0"
+    compute_type    = "BUILD_GENERAL1_LARGE"
+    image           = "aws/codebuild/amazonlinux2-x86_64-standard:2.0"
     type            = "LINUX_CONTAINER"
     privileged_mode = true
   }

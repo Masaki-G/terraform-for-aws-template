@@ -1,7 +1,7 @@
 
 module "nginx-sg" {
   source      = "../../module/security_group"
-  name        = "nginx-sg"
+  name        = "prod-nginx-sg"
   vpc_id      = var.vpc_id
   port        = 80
   cidr_blocks = ["0.0.0.0/0"]

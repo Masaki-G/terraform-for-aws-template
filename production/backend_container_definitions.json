@@ -1,12 +1,12 @@
 [
   {
-    "name" : "backend",
-    "image": "177970032147.dkr.ecr.ap-northeast-1.amazonaws.com/prod-reborn-api:latest",
+    "name" : "prod-backend",
+    "image": "xxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/prod-xxx-xxx:latest",
     "essential": true,
     "portMappings": [
       {
         "protocol": "tcp",
-        "containerPort": 8000
+        "containerPort": 8088
       }
     ],
     "secrets": [
@@ -27,86 +27,27 @@
         "name": "MYSQL_PASSWORD"
       },
       {
+        "valueFrom": "/prod/db/rootpassword",
+        "name": "MYSQL_ROOT_PASSWORD"
+      },
+      {
         "valueFrom": "/prod/db/database",
         "name": "MYSQL_DATABASE"
-      },
-      {
-        "valueFrom": "/prod/db/engine",
-        "name": "MYSQL_ENGINE"
-      },
-      {
-        "valueFrom": "/prod/django/secret",
-        "name": "DJANGO_SECRET_KEY"
-      },
-      {
-        "valueFrom": "/prod/django/cors",
-        "name": "CORS_ORIGIN_ALLOW_ALL"
-      },
-      {
-        "valueFrom": "/prod/django/ses_host",
-        "name": "SES_HOST"
-      },
-      {
-        "valueFrom": "/prod/django/ses_port",
-        "name": "SES_PORT"
-      },
-      {
-        "valueFrom": "/prod/django/ses_secure",
-        "name": "SES_SECURE"
-      },
-      {
-        "valueFrom": "/prod/django/ses_auth_user",
-        "name": "SES_AUTH_USER"
-      },
-      {
-        "valueFrom": "/prod/django/ses_auth_password",
-        "name": "SES_AUTH_PASSWORD"
-      },
-      {
-        "valueFrom": "/prod/django/ses_reject",
-        "name": "SES_REJECTUNAUTHORIZED"
-      },
-      {
-        "valueFrom": "/prod/django/ses_maila",
-        "name": "SES_MAILADDRESS"
-      },
-      {
-        "valueFrom": "/prod/django/bucket_name",
-        "name": "BUCKET_NAME"
-      },
-     {
-        "valueFrom": "/prod/django/secret_key",
-        "name": "AWS_SECRET_ACCESS_KEY"
-      },
-     {
-        "valueFrom": "/prod/django/s3_access_key",
-        "name": "AWS_ACCESS_KEY_ID"
-      },
-     {
-        "valueFrom": "/prod/django/debug",
-        "name": "DEBUG"
-      },
-      {
-        "valueFrom": "/prod/django/dn",
-        "name": "DOMAIN_NAME"
-      },
-      {
-        "valueFrom": "/prod/django/cf",
-        "name": "CLOUDFRONT_DOMAIN"
       }
+
     ],
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
         "awslogs-region": "ap-northeast-1",
-        "awslogs-stream-prefix": "django",
-        "awslogs-group": "/ecs/reborn-prod-api"
+        "awslogs-stream-prefix": "backend",
+        "awslogs-group": "/ecs/example"
       }
     }
   },
     {
-    "name" : "web-backend-nginx",
-    "image": "177970032147.dkr.ecr.ap-northeast-1.amazonaws.com/prod-web-backend-nginx:latest",
+    "name" : "prod-backend-nginx",
+    "image": "xxxx.dkr.ecr.ap-northeast-1.amazonaws.com/prod-backend-nginx:latest",
     "essential": true,
     "portMappings": [
       {
@@ -119,7 +60,7 @@
       "options": {
         "awslogs-region": "ap-northeast-1",
         "awslogs-stream-prefix": "nginx",
-        "awslogs-group": "/ecs/reborn-prod-api"
+        "awslogs-group": "/ecs/example"
       }
     }
     }

@@ -19,11 +19,25 @@ module "cicd_policy" {
   source = "../policy"
 }
 
+module "ssr_codebuild_role" {
+  source     = "../../iam"
+  name       = "ssr_codebuild_role"
+  identifier = "codebuild.amazonaws.com"
+  policy     = module.cicd_policy.codebuild_policy
+}
+
+module "ssr_codepipeline_role" {
+  source     = "../../iam"
+  name       = "ssr_codepipeline_role"
+  identifier = "codepipeline.amazonaws.com"
+  policy     = module.cicd_policy.codepipeline_policy
+}
+
 
 # backend用codepipeline、codebuild
 resource "aws_codepipeline" "example_codepipeline" {
   name     = "sample_code_pipeline"
-  role_arn = module.cicd_policy.codepipeline_role
+  role_arn = module.ssr_codepipeline_role.iam_role_arn
 
   stage {
     name = "Source"
@@ -88,15 +102,19 @@ resource "aws_codepipeline" "example_codepipeline" {
 
 resource "aws_codebuild_project" "example_backend_project" {
   name         = var.ssr_codebuild_name
-  service_role = module.cicd_policy.codebuild_role
+  service_role = module.ssr_codebuild_role.iam_role_arn
 
 
   artifacts {
     type = "CODEPIPELINE"
   }
+  cache {
+    type  = "LOCAL"
+    modes = ["LOCAL_DOCKER_LAYER_CACHE", "LOCAL_SOURCE_CACHE"]
+  }
   environment {
-    compute_type    = "BUILD_GENERAL1_SMALL"
-    image           = "aws/codebuild/standard:4.0"
+    compute_type    = "BUILD_GENERAL1_LARGE"
+    image           = "aws/codebuild/amazonlinux2-x86_64-standard:2.0"
     type            = "LINUX_CONTAINER"
     privileged_mode = true
   }
@@ -116,14 +134,18 @@ resource "aws_s3_bucket" "example_backend_artifact" {
 # nginx用codebuild
 resource "aws_codebuild_project" "example_nginx_project" {
   name         = var.nginx_codebuild_name
-  service_role = module.cicd_policy.codebuild_role
+  service_role = module.ssr_codebuild_role.iam_role_arn
 
   artifacts {
     type = "NO_ARTIFACTS"
   }
+  cache {
+    type  = "LOCAL"
+    modes = ["LOCAL_DOCKER_LAYER_CACHE", "LOCAL_SOURCE_CACHE"]
+  }
   environment {
-    compute_type    = "BUILD_GENERAL1_SMALL"
-    image           = "aws/codebuild/standard:4.0"
+    compute_type    = "BUILD_GENERAL1_LARGE"
+    image           = "aws/codebuild/amazonlinux2-x86_64-standard:2.0"
     type            = "LINUX_CONTAINER"
     privileged_mode = true
   }

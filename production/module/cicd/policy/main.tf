@@ -55,19 +55,3 @@ data "aws_iam_policy_document" "codepipeline_policy" {
     ]
   }
 }
-
-
-
-//module "ssr_codebuild_role" {
-//  source     = "../../iam"
-//  name       = "ssr_codebuild_role"
-//  identifier = "codebuild.amazonaws.com"
-//  policy     = data.aws_iam_policy_document.codebuild_policy.json
-//}
-//
-//module "ssr_codepipeline_role" {
-//  source     = "../../iam"
-//  name       = "ssr_codepipeline_role"
-//  identifier = "codepipeline.amazonaws.com"
-//  policy     = data.aws_iam_policy_document.codepipeline_policy.json
-//}

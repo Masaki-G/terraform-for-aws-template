@@ -2,7 +2,7 @@ resource "aws_ecs_service" "example_backend_service" {
   name = "prod-backend"
   cluster = aws_ecs_cluster.example_cluster.arn
   task_definition = aws_ecs_task_definition.example_backend_taskdifinition.arn
-  desired_count = 2
+  desired_count = 1
   launch_type = "FARGATE"
   platform_version = "LATEST"
   health_check_grace_period_seconds = 60
