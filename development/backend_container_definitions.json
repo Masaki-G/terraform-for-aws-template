@@ -1,0 +1,105 @@
+[
+  {
+    "name" : "backend",
+    "image": "594955594561.dkr.ecr.ap-northeast-1.amazonaws.com/dev-mitsuibau-api:latest",
+    "essential": true,
+    "portMappings": [
+      {
+        "protocol": "tcp",
+        "containerPort": 8088
+      }
+    ],
+    "secrets": [
+      {
+        "valueFrom": "/dev/db/host",
+        "name": "MYSQL_HOST"
+      },
+      {
+        "valueFrom": "/dev/db/port",
+        "name": "MYSQL_PORT"
+      },
+      {
+        "valueFrom": "/dev/db/username",
+        "name": "MYSQL_USER"
+      },
+      {
+        "valueFrom": "/dev/db/password",
+        "name": "MYSQL_PASSWORD"
+      },
+      {
+        "valueFrom": "/dev/db/rootpassword",
+        "name": "MYSQL_ROOT_PASSWORD"
+      },
+      {
+        "valueFrom": "/dev/db/database",
+        "name": "MYSQL_DATABASE"
+      },
+      {
+        "valueFrom": "/dev/rust/server_addr",
+        "name": "SERVER_ADDR"
+      },
+      {
+        "valueFrom": "/dev/db/database_url",
+        "name": "DATABASE_URL"
+      },
+      {
+        "valueFrom": "/dev/rust/aws_access_key",
+        "name": "AWS_ACCESS_KEY_ID"
+      },
+      {
+        "valueFrom": "/dev/rust/aws_secret_key",
+        "name": "AWS_SECRET_ACCESS_KEY"
+      },
+      {
+        "valueFrom": "/dev/rust/aws_region",
+        "name": "AWS_REGION"
+      },
+      {
+        "valueFrom": "/dev/rust/aws_bucket_name",
+        "name": "BUCKET_NAME"
+      },
+      {
+        "valueFrom": "/dev/rust/azure_access_token",
+        "name": "GRAPH_ACCESS_TOKEN"
+      },
+
+      {
+        "valueFrom": "/dev/rust/azure_reflesh_token",
+        "name": "GRAPH_REFLESH_TOKEN"
+      },
+
+      {
+        "valueFrom": "/dev/rust/cf",
+        "name": "CLOUDFRONT_DOMAIN"
+      }
+
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "rust",
+        "awslogs-group": "/ecs/example"
+      }
+    }
+  },
+    {
+    "name" : "web-backend-nginx",
+    "image": "594955594561.dkr.ecr.ap-northeast-1.amazonaws.com/dev-web-backend-nginx:latest",
+    "essential": true,
+    "portMappings": [
+      {
+        "protocol": "tcp",
+        "containerPort": 80
+      }
+    ],
+      "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "nginx",
+        "awslogs-group": "/ecs/example"
+      }
+    }
+    }
+]
