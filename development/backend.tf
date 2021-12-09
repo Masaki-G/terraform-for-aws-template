@@ -23,17 +23,10 @@ module "alb" {
   public_subnet_1             = module.subnet.public_subnet_1
   public_subnet_2             = module.subnet.public_subnet_2
   vpc_id                      = module.subnet.vpc
-<<<<<<< HEAD
   acm_certificate_domain_name = "dev.xxx.xxx"
   recode_name                 = "dev"
   zone_id                     = "xxxxxxxxxx"
   security_group_name         = "dev-xxx-xxx"
-=======
-  acm_certificate_domain_name = "dev.api.mitsuibau.jp"
-  recode_name                 = "dev.api"
-  zone_id                     = "Z06949933ALWUUNMLE4NO"
-  security_group_name         = "dev-api-mitsuibau"
->>>>>>> c36c93c9edeb47bb58e89c43f4df4fc5f9b1741b
 }
 
 #Fargate
@@ -43,48 +36,28 @@ module "ecs" {
   vpc_id           = module.subnet.vpc
   backend_log      = "/ecs/example"
   alb_target_group = module.alb.target_group
-<<<<<<< HEAD
   cluster_name     = "dev-example-cluster"
-=======
-  cluster_name     = "dev-mitsuibau-cluster"
->>>>>>> c36c93c9edeb47bb58e89c43f4df4fc5f9b1741b
 
 }
 
 #backend用cicd
 module "cicd_backend" {
   source                  = "./module/cicd/backend"
-<<<<<<< HEAD
   bakcend_codebuild_name  = "dev-backend-codebuild"
   backend_buildspec       = "buildspec/development.yml"
   backend_artifact_bucket = "dev-example-s3-artifact"
   source_connection       = "xxxxx"
   backend_repo            = "xxxx/xxxxx"
-=======
-  bakcend_codebuild_name  = "dev-mitsuibau-codebuild"
-  backend_buildspec       = "buildspec/development.yml"
-  backend_artifact_bucket = "dev-mitsuibau-s3-artifact"
-  source_connection       = "arn:aws:codestar-connections:ap-northeast-1:594955594561:connection/64c840b7-1464-43ce-9219-a979488a9735"
-  backend_repo            = "fignny/mitsuibau-api"
->>>>>>> c36c93c9edeb47bb58e89c43f4df4fc5f9b1741b
   backend_branch          = "develop"
-  backend_ecr_name        = "dev-mitsuibau-api"
+  backend_ecr_name        = "dev-example-api"
 
-<<<<<<< HEAD
   nginx_buildspec       = "containers/nginx/buildspec.yml"
   nginx_source_location = "https://github.com/xxxxx/xxxxxxx"
   nginx_push_branch     = "develop"
   nginx_codebuild_name  = "dev-backend-nginx_codebuild"
   nginx_ecr_name        = "dev-backend-nginx"
-=======
-  nginx_buildspec       = "containers/nginx/development.yml"
-  nginx_source_location = "https://github.com/fignny/mitsuibau-api"
-  nginx_push_branch     = "develop"
-  nginx_codebuild_name  = "dev-nginx_codebuild"
-  nginx_ecr_name        = "dev-web-backend-nginx"
->>>>>>> c36c93c9edeb47bb58e89c43f4df4fc5f9b1741b
 
-  github_token = "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"
+  github_token = "xxxxxx"
 
   cluster_name = module.ecs.cluster_name
   service_name = module.ecs.service_name

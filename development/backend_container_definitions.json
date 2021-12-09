@@ -1,7 +1,7 @@
 [
   {
-    "name" : "backend",
-    "image": "594955594561.dkr.ecr.ap-northeast-1.amazonaws.com/dev-mitsuibau-api:latest",
+    "name" : "dev-backend",
+    "image": "xxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/dev-xxx-xxx:latest",
     "essential": true,
     "portMappings": [
       {
@@ -33,44 +33,6 @@
       {
         "valueFrom": "/dev/db/database",
         "name": "MYSQL_DATABASE"
-      },
-      {
-        "valueFrom": "/dev/rust/server_addr",
-        "name": "SERVER_ADDR"
-      },
-      {
-        "valueFrom": "/dev/db/database_url",
-        "name": "DATABASE_URL"
-      },
-      {
-        "valueFrom": "/dev/rust/aws_access_key",
-        "name": "AWS_ACCESS_KEY_ID"
-      },
-      {
-        "valueFrom": "/dev/rust/aws_secret_key",
-        "name": "AWS_SECRET_ACCESS_KEY"
-      },
-      {
-        "valueFrom": "/dev/rust/aws_region",
-        "name": "AWS_REGION"
-      },
-      {
-        "valueFrom": "/dev/rust/aws_bucket_name",
-        "name": "BUCKET_NAME"
-      },
-      {
-        "valueFrom": "/dev/rust/azure_access_token",
-        "name": "GRAPH_ACCESS_TOKEN"
-      },
-
-      {
-        "valueFrom": "/dev/rust/azure_reflesh_token",
-        "name": "GRAPH_REFLESH_TOKEN"
-      },
-
-      {
-        "valueFrom": "/dev/rust/cf",
-        "name": "CLOUDFRONT_DOMAIN"
       }
 
     ],
@@ -78,14 +40,14 @@
       "logDriver": "awslogs",
       "options": {
         "awslogs-region": "ap-northeast-1",
-        "awslogs-stream-prefix": "rust",
+        "awslogs-stream-prefix": "backend",
         "awslogs-group": "/ecs/example"
       }
     }
   },
     {
-    "name" : "web-backend-nginx",
-    "image": "594955594561.dkr.ecr.ap-northeast-1.amazonaws.com/dev-web-backend-nginx:latest",
+    "name" : "dev-backend-nginx",
+    "image": "xxxx.dkr.ecr.ap-northeast-1.amazonaws.com/dev-backend-nginx:latest",
     "essential": true,
     "portMappings": [
       {

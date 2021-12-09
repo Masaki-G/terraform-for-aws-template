@@ -2,17 +2,10 @@
 module "rds" {
   source         = "./module/rds"
   private_subnet = [module.subnet.private_subnet_1, module.subnet.private_subnet_2]
-<<<<<<< HEAD
   rds_name       = "dev-example-rds"
   vpc_id         = module.subnet.vpc
   password       = "xxxxxxx"
   database_name  = "xxxxxxx"
-=======
-  rds_name       = "dev-mitsuibau-rds"
-  vpc_id         = module.subnet.vpc
-  password       = "mzukewBaHc8y"
-  database_name  = "mitsuibau"
->>>>>>> c36c93c9edeb47bb58e89c43f4df4fc5f9b1741b
 
 }
 
