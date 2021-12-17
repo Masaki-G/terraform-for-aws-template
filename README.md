@@ -6,7 +6,7 @@
 自分がよく使うaws構成をterraformで汎用的に作成しました。
 - ECR、ECSのfargateによる管理不要なコンテナを実行するためのサーバー環境
 - S3 + cloudfrontによるSPAでのホスト
-- codepipeline codebuildを使用したcicd環境
+- github codepipeline codebuildを使用したcicd環境
 
 # setup
 clone後対象の環境のフォルダに移動
